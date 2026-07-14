@@ -1,39 +1,31 @@
-# Chatwork AI Bot (Local-first Upgrade)
+# Chatwork AI Bot
 
-<!-- BrandCloud:readme-standard -->
-[![Maintained](https://img.shields.io/badge/Maintained-yes-brightgreen.svg)](#)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Showcase](https://img.shields.io/badge/Portfolio-Showcase-blue.svg)](#)
-
-_Part of the `sakib-maho` project showcase series with consistent documentation and quality standards._
-
-This repository now includes a safer local-first bot response layer that can be tested
-without external API credentials. The legacy API script is preserved in `legacy/`.
+Local-first Chatwork-style bot framework with intent routing, a mock API client, CLI, and tests.
 
 ## Features
 
-- Local response engine with simple intent routing
-- CLI for rapid testing (`--message`)
-- API handler wrapper for deployment-style environments
-- Unit tests for response behavior and CLI flow
+- Intent detection: greeting, deploy, bug, meeting, status, thanks
+- Confidence-scored routing with fallback guidance
+- `BotService` + in-memory Chatwork client for offline demos/tests
+- CLI for quick local replies
+- Unit tests for intents and outbound messaging
 
-## Quick Start
+## Quick start
 
 ```bash
-python3 cli.py --message "deploy update needed"
+PYTHONPATH=. python3 cli.py "Need help with production deploy"
+PYTHONPATH=. python3 cli.py "We hit a bug in login" --json
+PYTHONPATH=. python3 -m unittest discover -s tests -p "test_*.py"
 ```
 
-## Tests
+## Example
 
 ```bash
-python3 -m unittest discover -s tests -p "test_*.py"
+$ PYTHONPATH=. python3 cli.py "hello"
+intent=greeting confidence=0.5
+[local-room] Hello! I can help with deploys, bugs, meeting notes, and status updates.
 ```
 
 ## License
 
-MIT License. See `LICENSE`.
-
-## Notes
-
-- Original integration script remains at `legacy/api/chatwork_bot.py`.
-- You can rewire `api/chatwork_bot.py` to external providers later.
+MIT
